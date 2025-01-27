@@ -35,3 +35,32 @@ class MyCircularQueue:
 
     def isFull(self) -> bool:
         return self._count == self._capacity
+    
+    
+
+"""_summary_
+    622. Design Circular Queue
+
+Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
+
+One of the benefits of the circular queue is that we can make use of the spaces in front of the queue. In a normal queue, once the queue becomes full, we cannot insert the next element even if there is a space in front of the queue. But using the circular queue, we can use the space to store new values.
+
+--------------------------------------------------
+- Array of size k.
+- Front: the index of the first element.
+- Rear: the index of the last element.
+- Count: the number of elements in the queue.
+
+
+[1, 2]
+headIndex = 0, capacity = 2, count = 2
+enQueue(3) => [1, 2, 3]
+
+enQueue: 
+    # use count as offset from headIndex to insert element
+    headIndex + count % capacity 
+deQueue:
+    # control headIndex to remove element from the front
+    _headIndex = headIndex + 1 % capacity 
+    
+"""
