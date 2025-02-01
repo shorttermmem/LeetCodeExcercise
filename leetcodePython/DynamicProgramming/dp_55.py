@@ -24,3 +24,11 @@ class Solution:
             if reverse_i + nums[reverse_i] >= reverse_pos:
                 reverse_pos = reverse_i
         return reverse_pos == 0
+
+#https://leetcode.com/problems/jump-game/description/
+#-------------------------------------------------- with example
+# no need to try all possible steps, just the max step size
+# start from the end and mark reachable index is easier 
+
+
+        
