@@ -1,5 +1,16 @@
-from typing import List
+#https://leetcode.com/problems/jump-game-ii/description/
+# Example 1:
+# Input: nums = [2,3,1,1,4]
+# Output: 2
+# Explanation: 
+# The minimum number of jumps to reach the last index is 2. 
+# Jump 1 step from index 0 to 1, then 3 steps to the last index.
+# 
+# Constraints:
+# 1 <= nums.length <= 10^4
+# 0 <= nums[i] <= 1000
 
+from typing import List
 
 class SolutionDP:
     def jump(self, nums: List[int]) -> int:
