@@ -1,22 +1,24 @@
-#https://leetcode.com/problems/longest-palindromic-substring/?envType=problem-list-v2&envId=dynamic-programming
+#https://leetcode.com/problems/longest-palindromic-substring/description/
+# Example 1:
+# Input: s = "babad"
+# Output: "bab"
+# Note: "aba" is also a valid answer.
 
+    # Input: s = "babad"
+    # Output: "bab"
 
-class solution:
-    def longestPalindrome(s: str) -> str:
-
-
-        # Example 1:
-        # Input: s = "babad"
-        # Output: "bab"
+    #   j 0 1 2 3 4
+    # i   b a b a d
+    # 0 b 1 0 1 0 0      
+    # 1 a   1 0 1 0 
+    # 2 b     1 0 0 
+    # 3 a       1 0 
+    # 4 d         1 
     
-        #   j 0 1 2 3 4
-        # i   b a b a d
-        # 0 b 1 0 1 0 0      
-        # 1 a   1 0 1 0 
-        # 2 b     1 0 0 
-        # 3 a       1 0 
-        # 4 d         1 
-        
+class solution:
+
+    # bottom-up approach with tabulation
+    def longestPalindrome(s: str) -> str:
         if not s:
             return ""
         
@@ -36,6 +38,7 @@ class solution:
                 dp[i][i + 1] = 1
                 start = i
                 max_length = 2
+                break
         
         # The rest of the cases: length 3 to n
         for length in range(3, n + 1):
@@ -51,13 +54,11 @@ class solution:
                     max_length = length
         
         return s[start:start + max_length]
-                
-
-    
+              
+    # top-down approach with memoization
     def longestPalindrome(s: str) -> str:
 
-
-        def _isParlindrom(s, l, r, memo):
+        def _isParlindrom(s, l, r, memo) -> str:
             if (l, r) in memo:
                 return memo[(l, r)]    # use tuple as key, similar to dp[i][j]
             
@@ -68,6 +69,8 @@ class solution:
             
             if s[l] == s[r]:
                 inner = _isParlindrom(l + 1, r - 1, memo)
+                # if inner is a palindrome, 
+                # then s[l] + inner + s[r] is a palindrome
                 if len(inner) == (r - l - 1):
                     memo[(l, r)] = s[l] + inner + s[r]
                     return memo[(l, r)]
