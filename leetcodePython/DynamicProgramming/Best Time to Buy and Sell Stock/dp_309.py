@@ -1,5 +1,5 @@
 #https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/
-# at most one transaction with cooldown
+# sell with cooldown
 # Example 1:
 # Input: [1,2,3,0,2]
 # Output: 3
