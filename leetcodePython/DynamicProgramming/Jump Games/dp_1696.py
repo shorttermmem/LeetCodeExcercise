@@ -1,5 +1,5 @@
 #https://leetcode.com/problems/jump-game-vi/description/
-
+# max score in k steps or less
 # Example 1:
 # Input: nums = [1,-1,-2,4,-7,3], k = 2
 # Output: 7

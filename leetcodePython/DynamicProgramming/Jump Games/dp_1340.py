@@ -1,4 +1,9 @@
 #https://leetcode.com/problems/jump-game-v/description/
+# longest steps to descent per d steps 
+# Example 1:
+# Input: arr = [6,4,14,6,8,13,9,7,10,6,12], d = 2
+# Output: 4
+# Explanation: You can start at index 10. You can jump 10 --> 8 --> 6 --> 7 as shown.
 
 class Solution:
     # DP - Bottom Up with memoization

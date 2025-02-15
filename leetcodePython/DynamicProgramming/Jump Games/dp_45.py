@@ -1,4 +1,5 @@
 #https://leetcode.com/problems/jump-game-ii/description/
+# min reachable
 # Example 1:
 # Input: nums = [2,3,1,1,4]
 # Output: 2

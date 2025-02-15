@@ -1,4 +1,5 @@
 #https://leetcode.com/problems/jump-game-vii/description/
+# binary string limits landing positions.
 # Example 1:
 # Input: s = "011010", minJump = 2, maxJump = 3
 # Output: true
