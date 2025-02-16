@@ -20,7 +20,29 @@
 
 ---
 
-## 3. Jump Game V (Leetcode 1340)
+## 3. Jump Game III (Leetcode 1306)  
+**Problem:** Given `nums` and a starting index, determine if you can reach any index with value `0`. You can jump left or right by `nums[i]` steps.  
+
+### **Increased Difficulty**  
+- **New constraints:** Can jump **both** left and right, but not beyond array bounds.  
+- **State:** `dp[i] = true` if index `i` can reach an index with `0`.  
+- **Transition:** `dp[i] = true` if `dp[i + nums[i]] = true` or `dp[i - nums[i]] = true`.  
+- **Optimization:** Use **BFS or DFS** to avoid cycles and unnecessary recomputation.  
+
+---  
+
+## 4. Jump Game IV (Leetcode 1345)  
+**Problem:** Given `nums`, where you can jump to adjacent indices or any index with the same value, find the minimum jumps to reach the last index.  
+
+### **Increased Difficulty**  
+- **New jump condition:** Can jump to **any index with the same value** in addition to adjacent indices.  
+- **State:** `dp[i] = min jumps to index i`.  
+- **Transition:** `dp[i] = min(dp[i-1], dp[i+1], min(dp[j] for j in indices where nums[j] == nums[i])) + 1`.  
+- **Optimization:** Use **BFS** and a **HashMap to track indices with the same value**, marking visited indices to prevent redundant computations.  
+
+---  
+
+## 5. Jump Game V (Leetcode 1340)
 **Problem:** Given `nums`, where you can jump left or right up to `d` steps, find the maximum number of indices you can visit starting from any index.
 
 ### **Increased Difficulty**
@@ -31,7 +53,7 @@
 
 ---
 
-## 4. Jump Game VI (Leetcode 1696)
+## 6. Jump Game VI (Leetcode 1696)
 **Problem:** Given `nums`, where you can jump forward up to `k` steps, find the maximum score you can achieve by summing values along the way.
 
 ### **Increased Difficulty**
@@ -42,7 +64,7 @@
 
 ---
 
-## 5. Jump Game VII (Leetcode 1871)
+## 7. Jump Game VII (Leetcode 1871)
 **Problem:** You can only jump within `[minJump, maxJump]` and must land on ‘0’ in a binary string.
 
 ### **Increased Difficulty**
@@ -53,7 +75,7 @@
 
 ---
 
-## 6. Jump Game VIII (Leetcode 2297)
+## 8. Jump Game VIII (Leetcode 2297)
 **Problem:** Given `nums`, where each jump costs a specific price, find the minimum cost to reach the last index.
 
 ### **Most Difficult Variant**
@@ -64,17 +86,22 @@
 
 ---
 
-## **Summary of Complexity Increase**
-| Problem | Constraints & Complexity |
-|---------|-------------------------|
-| **Jump Game 55** | Basic DP/Greedy (Reachability Check) |
-| **Jump Game 45** | Greedy Optimization (Min Jumps) |
-| **Jump Game V** | Constrained Jumps with Order Dependency (Sorting + DP) |
-| **Jump Game VI** | Max Score with Range Limitation (Monotonic Deque) |
-| **Jump Game VII** | Binary String Constraints (Prefix Sum/Sliding Window) |
-| **Jump Game VIII** | Min Cost with Variable Jump Cost (Monotonic Deque) |
+## **Updated Complexity Summary**  
+| Problem | Constraints & Complexity |  
+|---------|-------------------------|  
+| **Jump Game 55** | Basic DP/Greedy (Reachability Check) |  
+| **Jump Game 45** | Greedy Optimization (Min Jumps) |  
+| **Jump Game III** | Bi-Directional Jumps (Graph Traversal) |  
+| **Jump Game IV** | Graph-Based Jumps with Same-Value Indices (BFS + HashMap) |  
+| **Jump Game V** | Constrained Jumps with Order Dependency (Sorting + DP) |  
+| **Jump Game VI** | Max Score with Range Limitation (Monotonic Deque) |  
+| **Jump Game VII** | Binary String Constraints (Prefix Sum/Sliding Window) |  
+| **Jump Game VIII** | Min Cost with Variable Jump Cost (Monotonic Deque) |  
 
-The main difficulty increase comes from:
+The primary difficulty increase comes from:  
+- Introducing **bi-directional movement** (Jump Game III).  
+- Allowing **non-adjacent jumps via same values** (Jump Game IV).  
+- Increasing reliance on **graph traversal techniques** (BFS, HashMap optimizations).  
 - Introducing more constraints (limited jump range, order dependency).
 - Changing the objective (min/max cost instead of reachability).
 - Requiring efficient data structures (monotonic deque, prefix sum, sorting).
