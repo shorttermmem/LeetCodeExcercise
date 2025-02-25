@@ -20,7 +20,7 @@
 
 ---
 
-## 3. Jump Game III (Leetcode 1306)  
+## 3. Jump Game III (Leetcode 1306)  NOT DP, decision problem
 **Problem:** Given `nums` and a starting index, determine if you can reach any index with value `0`. You can jump left or right by `nums[i]` steps.  
 
 ### **Increased Difficulty**  
@@ -31,7 +31,7 @@
 
 ---  
 
-## 4. Jump Game IV (Leetcode 1345)  
+## 4. Jump Game IV (Leetcode 1345)  NOT DP
 **Problem:** Given `nums`, where you can jump to adjacent indices or any index with the same value, find the minimum jumps to reach the last index.  
 
 ### **Increased Difficulty**  
@@ -42,7 +42,7 @@
 
 ---  
 
-## 5. Jump Game V (Leetcode 1340)
+## 5. Jump Game V (Leetcode 1340) NOT DP
 **Problem:** Given `nums`, where you can jump left or right up to `d` steps, find the maximum number of indices you can visit starting from any index.
 
 ### **Increased Difficulty**
@@ -64,7 +64,7 @@
 
 ---
 
-## 7. Jump Game VII (Leetcode 1871)
+## 7. Jump Game VII (Leetcode 1871) NOT DP, better sliding window
 **Problem:** You can only jump within `[minJump, maxJump]` and must land on ‘0’ in a binary string.
 
 ### **Increased Difficulty**
