@@ -197,6 +197,18 @@ for i, num in enumerate(arr):
     stack.append(i)
 ```
 
+## 11. Sweep Line Algorithm
+
+### Interval Counting with Sweep Line
+```python
+  # Separate and sort the start and end times  
+  starts, ends = map(sorted, zip(*events))
+  # Calculate overlapping events for each observation time
+  # bisect_right(starts, time): Counting how many intervals have started by the given time.
+  # bisect_left(ends, time): Counting how many intervals have ended before the given time.
+  res = [bisect_right(starts, time) - bisect_left(ends, time) for time in observation_times]
+```
+
 ---
 
 This document provides a concise collection of Python tricks commonly used for solving LeetCode array problems efficiently.
