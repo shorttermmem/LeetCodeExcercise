@@ -117,6 +117,13 @@ for num in arr:
     heapq.heappush(heap, num)
     if len(heap) > k:
         heapq.heappop(heap)  # Keep only k largest elements
+
+# this may be faster
+heap = arr[:k]
+heapq.heapify(heap)
+for num in arr[k:]:
+    if num > heap[0]:
+        heapq.heappushpop(heap, num)
 ```
 
 ## 7. List Comprehensions
