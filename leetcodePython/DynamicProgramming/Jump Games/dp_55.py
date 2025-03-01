@@ -26,13 +26,11 @@ class Solution:
         return reverse_pos == 0
 
 #https://leetcode.com/problems/jump-game/description/
-#-------------------------------------------------- with example
-# no need to try all possible steps, just the max step size
-# start from the end and mark reachable index is easier 
-
+# is last index reachable
 # Example 1:
 # Input: nums = [2,3,1,1,4]
 # Output: true
+
 class Solution:
     # top-down approach with memoization
     def canJump(self, nums: List[int]) -> bool:

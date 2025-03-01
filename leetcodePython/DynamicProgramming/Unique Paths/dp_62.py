@@ -1,4 +1,9 @@
 #https://leetcode.com/problems/unique-paths/description/
+# all roads to Rome
+# Example: m = 3, n = 2
+# Output: 3
+# Explanation: there are three ways to reach the bottom-right corner
+
 from itertools import product
 
 class Solution:
