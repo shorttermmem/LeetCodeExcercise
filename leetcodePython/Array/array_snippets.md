@@ -209,6 +209,19 @@ for i, num in enumerate(arr):
   res = [bisect_right(starts, time) - bisect_left(ends, time) for time in observation_times]
 ```
 
+## 12. Circular Buffer
+```python
+def circular_loop(arr, start, n):
+    for k in range(n):  # Iterate n times
+        idx = (start + k) % n  # Circular index
+        print(arr[idx])  # Access element at idx
+
+# Example usage
+arr = ['A', 'B', 'C', 'D']  # n = 4
+start = 2  # Start at 'C'
+n = len(arr)
+circular_loop(arr, start, n)  # Outputs: C, D, A, B
+```
 ---
 
 This document provides a concise collection of Python tricks commonly used for solving LeetCode array problems efficiently.
