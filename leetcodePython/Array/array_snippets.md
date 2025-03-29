@@ -209,6 +209,17 @@ for i, num in enumerate(arr):
   res = [bisect_right(starts, time) - bisect_left(ends, time) for time in observation_times]
 ```
 
+```python
+  trips = [[2,1,5], [3,3,7]]
+  # Outer loop: for n, i, j in trips: [2,1,5], [3,3,7]
+  # Inner loop: for x in [[i, n], [j, -n]]  
+  # a flattened sequence of all the x pairs from all trips.
+  for i, v in sorted(x for n, i, j in trips for x in [[i, n], [j, -n]]):
+    # n = 2, i = 1, j = 5 → [[1, 2], [5, -2]].
+    # n = 3, i = 3, j = 7 → [[3, 3], [7, -3]].
+    # i, v = [1, 2], [3, 3], [5, -2], [7, -3]
+```
+
 ## 12. Circular Buffer
 ```python
 def circular_loop(arr, start, n):
