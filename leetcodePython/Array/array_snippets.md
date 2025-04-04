@@ -233,6 +233,20 @@ start = 2  # Start at 'C'
 n = len(arr)
 circular_loop(arr, start, n)  # Outputs: C, D, A, B
 ```
+
+## 13. Interesting case of 2D arrays
+```python
+# list comprehension method is essential for matrix operations.
+# CORRECT APPROACH (independent lists) - Only the modified cell changes in its specific row
+correct_grid = [[False for _ in range(3)] for _ in range(2)]
+correct_grid[0][0] = True
+print("Correct result:", correct_grid)  # [[True, False, False], [False, False, False]]
+
+# WRONG APPROACH (shared references) - All rows change when modifying one cell
+wrong_grid = [[False] * 3] * 2
+wrong_grid[0][0] = True
+print("Wrong result:", wrong_grid)  # [[True, False, False], [True, False, False]]
+```
 ---
 
 This document provides a concise collection of Python tricks commonly used for solving LeetCode array problems efficiently.
