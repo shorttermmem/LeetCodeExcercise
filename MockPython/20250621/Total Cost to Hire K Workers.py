@@ -18,6 +18,15 @@ Return the total cost to hire exactly k workers.
 Example 1:
 
 Input: costs = [17,12,10,2,7,2,11,20,8], k = 3, candidates = 4
+                ---------|   |--------    k =1,2    2+2 = 4
+                ----------------------    k = 3     4+7 = 11
+
+lefP = candidates
+rightP = len(costs) - candidates
+
+leftHeap, rightHeap = [], []
+
+
 Output: 11
 Explanation: We hire 3 workers in total. The total cost is initially 0.
 - In the first hiring round we choose the worker from [17,12,10,2,7,2,11,20,8]. The lowest cost is 2, and we break the tie by the smallest index, which is 3. The total cost = 0 + 2 = 2.
@@ -33,9 +42,36 @@ Explanation: We hire 3 workers in total. The total cost is initially 0.
 - In the second hiring round we choose the worker from [2,4,1]. The lowest cost is 1 (index 2). The total cost = 1 + 1 = 2.
 - In the third hiring round there are less than three candidates. We choose the worker from the remaining workers [2,4]. The lowest cost is 2 (index 0). The total cost = 2 + 2 = 4.
 The total hiring cost is 4.
+
+Constraints:
+
+1 <= costs.length <= 10^5 
+1 <= costs[i] <= 10^5
+1 <= k, candidates <= costs.length
+
+< 10^6 O(nlogn) -> sorting, PQ, divid & conquer, bst, greedy
+
+O(n) union-find 
+
+
+10^6 <= costs     O(logn) ---> (O(n) + greedy)
+
+
 """
 from common_types import *
+from heapq import heappush, heappop
 
 class Solution:
     def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        leftP = candidates
+        rightP = len(costs) - candidates
+        leftHeap, rightHeap = [], []
+        for c in costs[:candidates]:
+            heappush(leftHeap, c)
+        for c in costs[len(costs) - candidates+1:]:
+            heappush(rightHeap, c)
+
+        #while leftP <= rightP:
+        while k > 0:
+            lef            
         return 0

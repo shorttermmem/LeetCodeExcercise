@@ -1,6 +1,7 @@
 #https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/
 """
-You are given two positive integer arrays spells and potions, of length n and m respectively, where spells[i] represents the strength of the ith spell and potions[j] represents the strength of the jth potion.
+You are given two positive integer arrays spells and potions, of length n and m respectively, 
+where spells[i] represents the strength of the ith spell and potions[j] represents the strength of the jth potion.
 
 You are also given an integer success. A spell and potion pair is considered successful if the product of their strengths is at least success.
 
@@ -26,9 +27,51 @@ Explanation:
 - 1st spell: 1 * [8,5,8] = [8,5,8]. 0 pairs are successful. 
 - 2nd spell: 2 * [8,5,8] = [16,10,16]. 2 pairs are successful. 
 Thus, [2,0,2] is returned.
+
+
+Constraints:
+
+n == spells.length
+m == potions.length
+1 <= n, m <= 10^5
+1 <= spells[i], potions[i] <= 10^5
+1 <= success <= 10^10
+
+O(n) iteration for spells
+
+criteria: spells[i] * potions[j] >= success => potions[j] >= success / spells[i]
+
+sort potions => O(nlogn)
+
+
 """
 from common_types import *
+from bisect import bisect_left
 
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        return []
+        potions.sort()
+        answer = []
+        for spell in spells:
+            potionMin = success / spell # [left, right)
+            # [1,1,] bisect 1
+            validIndex = bisect_left(potions, potionMin) #[target_left, target_right)
+            answer.append(len(potions) - validIndex)
+        return answer
+
+
+        # Sort potions in ascending order
+        potions.sort()
+        
+        def bst(spell: int) -> int:
+            l, r = 0, len(potions) - 1
+            while l <= r:
+                mid = (l + r) // 2
+                if spell * potions[mid] >= success:
+                    r = mid - 1  # Look for a smaller index
+                else:
+                    l = mid + 1  # Need a larger potion
+            return len(potions) - l  # Number of potions from index l to the end
+        
+        # Apply binary search for each spell
+        return [bst(spell) for spell in spells]

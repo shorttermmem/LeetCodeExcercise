@@ -14,7 +14,11 @@ Or, no cell in row i has a value of 1.
 
 Return the maximum number of rows that can be covered by a set of numSelect columns.
 
-Input: matrix = [[0,0,0],[1,0,1],[0,1,1],[0,0,1]], numSelect = 2
+Input: matrix = [
+[0,0,0],
+[1,0,1],
+[0,1,1],
+[0,0,1]], numSelect = 2
 
 Output: 3
 
@@ -28,8 +32,26 @@ We choose s = {0, 2}.
 - Row 3 is covered because matrix[2][2] == 1 and 2 is present in s.
 Thus, we can cover three rows.
 Note that s = {1, 2} will also cover 3 rows, but it can be shown that no more than three rows can be covered.
+
+Constraints:
+
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 12                        O(n^2)
+matrix[i][j] is either 0 or 1.
+1 <= numSelect <= n                   
+
 """
 from common_types import *
 class Solution:
+
+
     def maximumRows(self, matrix: List[List[int]], numSelect: int) -> int:
+        
+            
+        #  matrix are the selected binaries
+        #  numSelect C(n, numSelect)  [_ 1 _ _ 1 _ 1 _ _ 1] numSelect = 4
+        maxSelectedRows = 0
+        for c in combinations(range(len(matrix[0])), numSelect):   #0 ... 10
+            
         return 0
