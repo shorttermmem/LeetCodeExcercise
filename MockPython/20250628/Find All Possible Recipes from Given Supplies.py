@@ -2,7 +2,10 @@
 from common_types import *
 
 """
-You have information about n different recipes. You are given a string array recipes and a 2D string array ingredients. The ith recipe has the name recipes[i], and you can create it if you have all the needed ingredients from ingredients[i]. A recipe can also be an ingredient for other recipes, i.e., ingredients[i] may contain a string that is in recipes.
+You have information about n different recipes. 
+You are given a string array recipes and a 2D string array ingredients. 
+The ith recipe has the name recipes[i], and you can create it if you have all the needed ingredients from ingredients[i]. 
+A recipe can also be an ingredient for other recipes, i.e., ingredients[i] may contain a string that is in recipes.
 
 You are also given a string array supplies containing all the ingredients that you initially have, and you have an infinite supply of all of them.
 
@@ -43,8 +46,46 @@ n == recipes.length == ingredients.length
 recipes[i], ingredients[i][j], and supplies[k] consist only of lowercase English letters.
 All the values of recipes and supplies combined are unique.
 Each ingredients[i] does not contain any duplicate values.
+
+
+Result: a list of all the recipes that you can create
+
+Related structure: map, graph, tree
+Data Size relatively small O(n^2) feasible
+
+
+["bread","sandwich"]
+
+[["yeast","flour"],["bread","meat"]]
+
+{"bread": ["yeast","flour"], "sandwich": ["bread","meat"]}
 """
+from typing import List
 
 class Solution:
+    def _dfsIngredientExist(self, current, ingredientsOf, supplySet) -> bool:
+        if current not in ingredientsOf:
+            return current in supplySet
+        for ingredient in ingredientsOf[current]:
+            if not self._dfsIngredientExist(ingredient, ingredientsOf, supplySet):
+                return False
+        return True
+
     def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
-        return []
+        supplySet = set(supplies)
+        ingredientsOf = {}
+
+        # {"bread": ["yeast","flour"], "sandwich": ["bread","meat"]}
+        for i in range(len(recipes)):
+            ingredientsOf[recipes[i]] = ingredients[i]
+
+        validRecipes = []
+        for recipe in recipes:
+            if self._dfsIngredientExist(recipe, ingredientsOf, supplySet):
+                validRecipes.append(recipe)
+        return validRecipes
+    
+
+
+
+

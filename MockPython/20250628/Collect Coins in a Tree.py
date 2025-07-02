@@ -2,7 +2,9 @@
 from common_types import *
 
 """
-There exists an undirected and unrooted tree with n nodes indexed from 0 to n - 1. You are given an integer n and a 2D integer array edges of length n - 1, where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree. You are also given an array coins of size n where coins[i] can be either 0 or 1, where 1 indicates the presence of a coin in the vertex i.
+There exists an undirected and unrooted tree with n nodes indexed from 0 to n - 1. 
+You are given an integer n and a 2D integer array edges of length n - 1, where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree. 
+You are also given an array coins of size n where coins[i] can be either 0 or 1, where 1 indicates the presence of a coin in the vertex i.
 
 Initially, you choose to start at any vertex in the tree. Then, you can perform the following operations any number of times: 
 
@@ -36,4 +38,20 @@ edges represents a valid tree.
 
 class Solution:
     def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
+        n = len(coins)
+        tree = [set() for _ in range(n)]
+        
+        # Build the tree from the edges
+        for u, v in edges:
+            tree[u].add(v)
+            tree[v].add(u)
+        
+        # Find the leaves with zero coins
+        for node in range(n):
+            while len(tree[node]) == 1 and coins[node]==0:
+                nextNode = tree[node]
+                tree[node] = set()
+                tree[nextNode].remove(node)
+                node = nextNode
+        
         return 0
