@@ -35,6 +35,14 @@ Constraints:
 
 1 <= nums.length <= 100
 1 <= nums[i], target <= 100
+
+brute force:
+1. sort array O(nlog(n))
+
+Not necessary 
+2. lookup target, binarysearch O(log(n)), leftIndex, rightIndex
+3. apend from leftIndex to rightIndex into result and return
+4. invalid leftIndex and right Index, return empty
 """
 
 class Solution:
