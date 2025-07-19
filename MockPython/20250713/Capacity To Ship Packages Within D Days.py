@@ -4,10 +4,10 @@ from common_types import *
 """
 A conveyor belt has packages that must be shipped from one port to another within days days.
 
-The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
-
+The ith package on the conveyor belt has a weight of weights[i]. 
+Each day, we load the ship with packages on the conveyor belt (in the order given by weights). 
+We may not load more weight than the maximum weight capacity of the ship.
 Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days.
-
  
 
 Example 1:
@@ -45,8 +45,41 @@ Constraints:
 
 1 <= days <= weights.length <= 5 * 104
 1 <= weights[i] <= 500
+
 """
 
 class Solution:
+    def _capacityValid(self, guessCapacity, weights, days) -> bool:
+        currentDays = 1
+        currentWeight = 0
+        for weight in weights:
+            if currentWeight + weight <= guessCapacity:
+                currentWeight += weight
+            else:
+                currentDays += 1
+                currentWeight = weight
+                if currentDays > days:
+                    return False
+        return True
+
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-        return 0
+        left, right = max(weights), sum(weights)
+        answerCapacity = -1
+        while left <= right:
+            guessCapacity = (left + right) // 2
+            if self._capacityValid(guessCapacity, weights, days):
+                answerCapacity = guessCapacity
+                right = guessCapacity - 1
+            else:
+                left = guessCapacity + 1
+        return answerCapacity
+
+
+
+
+
+
+
+
+
+
