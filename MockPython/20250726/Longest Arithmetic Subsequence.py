@@ -31,7 +31,62 @@ Constraints:
 
 2 <= nums.length <= 1000
 0 <= nums[i] <= 500
+
+
+9 4 7 2 10 5 3 # lower triangular iteration
+
+9 -----------                   
+
+9 4          |              lengthAtIndexWithDiff[1][5] = 2
+
+9 4 7        |              lengthAtIndexWithDiff[2][2] = 2      lengthAtIndexWithDiff[2][-3] = 2
+
+9 4 7 5      |              lengthAtIndexWithDiff[3][4] = 2      lengthAtIndexWithDiff[3][-1] = 2   lengthAtIndexWithDiff[3][2] = 3 # lengthAtIndexWithDiff[2][2]   or [3][7] or [3][5]
+
+9...         |
+
+9 4 7 2 10 5 3
+
+# 1 array, find all combinations of substractions
+
+lengthAtIndexWithDiff
+
+
+
+
 """
+from collections import defaultdict
 
 class Solution:
     def longestArithSeqLength(self, nums: List[int]) -> int:
+        lengthAtIndexWithDiff = [defaultdict(int) for _ in range(len(nums))] #cache max common `diffs` subseq length till index
+        maxLength = 0
+        # lower triangular iterating nums with endIndex, enumerate all pairwise diff within current anchoring
+        for endIndex in range(1, len(nums)):
+            for i in range(endIndex):
+                currDiff = nums[i] - nums[endIndex] # find a pair diff
+                
+                lengthAtIndexWithDiff[endIndex][currDiff] = 1 + lengthAtIndexWithDiff[i][currDiff] # accumulate existing subseq with the same length
+                maxLength = max(maxLength, lengthAtIndexWithDiff[endIndex][currDiff])
+
+        return maxLength + 1
+
+
+        """
+        subSeqLengthAt = [[0] * (len(nums2) + 1) for _ in range(len(nums1)+1)]
+        # two arrays
+        # full 2D iterations
+        for i1 in range(1, len(nums)+1):
+            for i2 in range(i1):
+                skipI1 = subSeqLengthAt[i1-1][i2]
+                skipI2 = subSeqLengthAt[i1][i2-1]
+                takeBoth = 0                
+                if nums1[i1-1] == nums2[i2-1]:
+                    takeBoth = 1 + subSeqLengthAt[i1-1][i2-1]
+                subSeqLengthAt[i1][i2] = max(skipI1, skipI2, takeBoth)
+
+        return subSeqLengthAt[-1][-1]
+        """
+
+        
+
