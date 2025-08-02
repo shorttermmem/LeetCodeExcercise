@@ -3,30 +3,23 @@
 from common_types import *
 """
 1019. Next Greater Node In Linked List
-Medium
-Topics
-premium lock icon
-Companies
-Hint
 You are given the head of a linked list with n nodes.
 
 For each node in the list, find the value of the next greater node. That is, for each node, find the value of the first node that is next to it and has a strictly larger value than it.
 
 Return an integer array answer where answer[i] is the value of the next greater node of the ith node (1-indexed). If the ith node does not have a next greater node, set answer[i] = 0.
 
- 
-
 Example 1:
-
 
 Input: head = [2,1,5]
 Output: [5,5,0]
 Example 2:
 
+2, 1, 5
+5  5  0
 
 Input: head = [2,7,4,3,5]
 Output: [7,0,5,5,0]
- 
 
 Constraints:
 
@@ -42,4 +35,33 @@ The number of nodes in the list is n.
 #         self.next = next
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
-        return []
+        curr = head
+        dataList = []
+        while curr:
+            dataList.append(curr.val)
+            curr = curr.next
+        
+        # dataList = [2, 1, 5]
+        result = [0] * len(dataList)
+        #[0, 0, 0]
+        decreaseStack = []
+        for i in range(len(dataList)): 
+            while decreaseStack and dataList[i] > dataList[decreaseStack[-1]]:
+                result[decreaseStack[-1]] = dataList[i]  # 5>data[1]  => result[1] = 5 5 > data[0] => result[0] = 5
+                decreaseStack.pop()
+            decreaseStack.append(i)  #[2] -> [2, 1]
+        return result
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
