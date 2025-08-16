@@ -2,7 +2,9 @@
 from common_types import *
 
 """
-You are given a positive integer n representing n cities numbered from 1 to n. You are also given a 2D array roads where roads[i] = [ai, bi, distancei] indicates that there is a bidirectional road between cities ai and bi with a distance equal to distancei. The cities graph is not necessarily connected.
+You are given a positive integer n representing n cities numbered from 1 to n. 
+You are also given a 2D array roads where roads[i] = [ai, bi, distancei] indicates that there is a bidirectional road between cities ai and bi with a distance equal to distancei. 
+The cities graph is not necessarily connected.
 
 The score of a path between two cities is defined as the minimum distance of a road in this path.
 
@@ -32,16 +34,44 @@ Explanation: The path from city 1 to 4 with the minimum score is: 1 -> 2 -> 1 ->
 
 Constraints:
 
-2 <= n <= 105
-1 <= roads.length <= 105
+2 <= n <= 10^5
+1 <= roads.length <= 10^5
 roads[i].length == 3
 1 <= ai, bi <= n
 ai != bi
-1 <= distancei <= 104
+1 <= distancei <= 10^4
 There are no repeated edges.
 There is at least one path between 1 and n.
+
+BFS, DFS, UF
+
+
 """
 
 class Solution:
     def minScore(self, n: int, roads: List[List[int]]) -> int:
-        return 0
+        visited = set()
+
+        currentCitys = deque([1])
+        path = defaultdict(list)
+        
+        pathDistance = {}
+        for src, dst, distance in roads:
+            path[src].append(dst)
+            pathDistance[(src, dst)] = distance
+            path[dst].append(src)
+            pathDistance[(dst, src)] = distance
+
+        minDistance = float("inf")
+        while currentCitys:
+            cityCount = len(currentCitys)
+            for i in range(cityCount):
+                city = currentCitys.popleft()
+                for nextCity in path[city]:
+                    if (city, nextCity) in visited:
+                        continue
+                    visited.add((city, nextCity))
+                    visited.add((nextCity, city))
+                    currentCitys.append(nextCity)
+                    minDistance = min(minDistance, pathDistance[(city, nextCity)])
+        return minDistance
