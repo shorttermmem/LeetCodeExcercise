@@ -1,4 +1,4 @@
-#https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another
+# https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another
 
 from common_types import *
 
@@ -46,5 +46,39 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    def _getLCA(self, currNode:TreeNode, val1, val2) -> Optional[TreeNode]:
+        if not currNode:
+            return None
+        if currNode.val == val1 or currNode.val == val2:
+            return currNode
+        leftAncestor = self._getLCA(currNode.left, val1, val2)
+        rightAncestor = self._getLCA(currNode.right, val1, val2)
+        if leftAncestor and rightAncestor:
+            return currNode
+        if leftAncestor:
+            return leftAncestor
+        return rightAncestor
+
+    def _dfsGetPath(self, currNode, val, path):
+        if not currNode:
+            return False
+        path.append("L")
+        if self._dfsGetPath(currNode.left, val, path):
+            return True
+        path.pop()
+        path.append("R")
+        if self._dfsGetPath(currNode.right, val, path):
+            return True
+        path.pop()
+        return False
+
+
     def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
-        return ""
+        lca = self._getLCA(root, startValue, destValue)
+        leftPath, rightPath = [], []
+        self._dfsGetPath(lca, startValue, leftPath)
+        self._dfsGetPath(lca, destValue, rightPath)
+        fullPath = []
+        fullPath.extend("U"*len(leftPath))
+        fullPath.extend(rightPath)
+        return "".join(fullPath)

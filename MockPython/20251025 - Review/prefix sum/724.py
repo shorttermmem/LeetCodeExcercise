@@ -5,7 +5,8 @@ from common_types import *
 """
 Given an array of integers nums, calculate the pivot index of this array.
 
-The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.
+The pivot index is the index where the 
+sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.
 
 If the index is on the left edge of the array, then the left sum is 0 because there are no elements to the left. This also applies to the right edge of the array.
 
@@ -21,6 +22,15 @@ Explanation:
 The pivot index is 3.
 Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11
 Right sum = nums[4] + nums[5] = 5 + 6 = 11
+
+prefixSum
+
+pivIndex
+
+rightSum = prefixSum[-1] - prefixSum[pivIndex]
+leftSum = prefixSum[pivIndex-1]
+
+
 Example 2:
 
 Input: nums = [1,2,3]
@@ -45,4 +55,24 @@ Constraints:
 
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        return 0
+        leftSum = 0
+        rightSum = sum(nums)
+
+        for i in range(len(nums)):
+            rightSum -= nums[i]
+            if leftSum == rightSum:
+                return i
+            leftSum += nums[i]
+        return -1
+    
+
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,14 @@ Example 1:
 Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
 Output: 7
 Explanation: Because the path 1 → 3 → 1 → 1 → 1 minimizes the sum.
+
+
+[1,3,1],
+[1,5,1],
+[4,2,1]
+
+minPathSum[row][col] = min(minPathSum[row-1][col], minPathSum[row][col-1])
+
 Example 2:
 
 Input: grid = [[1,2,3],[4,5,6]]
@@ -31,4 +39,18 @@ n == grid[i].length
 
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
-        return 0
+
+        @cache
+        def getMinPathSum(row, col) -> int:
+            if row == 0 and col == 0:
+                return grid[0][0]
+
+            if row == 0:
+                return grid[row][col] + getMinPathSum(row, col-1)
+
+            if col == 0:
+                return grid[row][col] + getMinPathSum(row-1, col)
+
+            return grid[row][col] + min(getMinPathSum(row-1, col), getMinPathSum(row, col-1))
+
+        return getMinPathSum(len(grid)-1, len(grid[0])-1)

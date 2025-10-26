@@ -3,14 +3,21 @@
 from common_types import *
 
 """
-You are given n​​​​​​ tasks labeled from 0 to n - 1 represented by a 2D integer array tasks, where tasks[i] = [enqueueTimei, processingTimei] means that the i​​​​​​th​​​​ task will be available to process at enqueueTimei and will take processingTimei to finish processing.
+You are given n​​​​​​ tasks labeled from 0 to n - 1 represented by a 2D integer array tasks, 
+where tasks[i] = [enqueueTimei, processingTimei] means that the i​​​​​​th​​​​ task will be available to process at 
+enqueueTimei and will take processingTimei to finish processing.
 
 You have a single-threaded CPU that can process at most one task at a time and will act in the following way:
 
 If the CPU is idle and there are no available tasks to process, the CPU remains idle.
-If the CPU is idle and there are available tasks, the CPU will choose the one with the shortest processing time. If multiple tasks have the same shortest processing time, it will choose the task with the smallest index.
+
+* If the CPU is idle and there are available tasks, the CPU will choose the one with the shortest processing time. 
+* If multiple tasks have the same shortest processing time, it will choose the task with the smallest index.
+
 Once a task is started, the CPU will process the entire task without stopping.
-The CPU can finish a task then start a new one instantly.
+
+* The CPU can finish a task then start a new one instantly.
+
 Return the order in which the CPU will process the tasks.
 
  
@@ -41,8 +48,29 @@ Explanation: The events go as follows:
 - At time = 18, the CPU finishes task 2 and starts processing task 0. Available tasks = {1}.
 - At time = 28, the CPU finishes task 0 and starts processing task 1. Available tasks = {}.
 - At time = 40, the CPU finishes task 1 and becomes idle.
+
+
+
 """
 
 class Solution:
     def getOrder(self, tasks: List[List[int]]) -> List[int]:
-        return []
+        taskInfo = [(start, duration, i) for i, (start, duration) in enumerate(tasks)]
+        taskInfo.sort()
+        order = []
+        tasksReadyHeap = []
+        taskIndex = 0
+        currentTime = 0
+        # try execute all data
+        while taskIndex < len(taskInfo) or tasksReadyHeap:
+            if not tasksReadyHeap:
+                currentTime = max(currentTime, taskInfo[taskIndex][0])
+            # push ready execute data in PQ
+            while taskIndex < len(taskInfo) and taskInfo[taskIndex][0] <= currentTime:
+                start, duration, index = taskInfo[taskIndex]
+                heappush(tasksReadyHeap, (duration, index))
+                taskIndex += 1
+            duration, index = heappop(tasksReadyHeap)
+            order.append(index)
+            currentTime += duration
+        return order
