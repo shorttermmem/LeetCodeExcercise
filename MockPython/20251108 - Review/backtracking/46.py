@@ -26,8 +26,34 @@ Constraints:
 1 <= nums.length <= 6
 -10 <= nums[i] <= 10
 All the integers of nums are unique.
+
+
+[1,2,3]
+
+curr = [1] => 1 is taken set define 1 is taken
+
+curr = [2, or 3] => 2 taken or 3 taken
+
 """
 
 class Solution:
+
+    # P(n k)
     def permute(self, nums: List[int]) -> List[List[int]]:
-        return []
+        result = []
+        usedIndex = [False] * len(nums)
+        def backtrack(curr):
+            if len(curr) == len(nums): # len(curr) == k, solve up to P(n, k)
+                result.append(list(curr))
+                return
+            for index in range(len(nums)):
+                if usedIndex[index]:
+                    continue
+                usedIndex[index] = True
+                curr.append(nums[index])
+                backtrack(curr)
+                usedIndex[index] = False
+                curr.pop()
+
+        backtrack([])
+        return result

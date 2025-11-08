@@ -26,8 +26,63 @@ Constraints:
 
 1 <= n <= 20
 1 <= k <= n
+
+
+[1, 2, 3, 4] take 2
+
+[1, 2] = [2, 1]
+[1, 4] = [4, 1]
+
+[1, 2] [1, 3] [1, 4] for take 2
+
+[1, 2].     for take 3
+    [1,2,3]
+    [1,2,4]
+
+
+1,2,3,4, take 3
+
+1
+    2
+        3
+        4
+    3
+        4
+    4
+
+2 
+  3 
+    4       answers
+-------------------------   
+3           unnecessary
+  4
+4
+    
 """
 
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        return []
+        result = []
+        def backtrack(minNum, currComb):
+            if len(currComb) == k:
+                result.append(list(currComb))
+                return
+            
+            for currNum in range(minNum, n+1):
+                if n+ 1 - minNum < k:
+                    return
+                currComb.append(currNum)
+                backtrack(currNum+1, currComb)
+                currComb.pop()
+        
+        backtrack(1, [])
+        return result
+    
+
+
+
+
+
+
+
+    
