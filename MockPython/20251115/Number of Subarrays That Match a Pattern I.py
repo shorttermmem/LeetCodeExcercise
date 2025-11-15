@@ -11,8 +11,12 @@ nums[i + k + 1] > nums[i + k] if pattern[k] == 1.
 nums[i + k + 1] == nums[i + k] if pattern[k] == 0.
 nums[i + k + 1] < nums[i + k] if pattern[k] == -1.
 Return the count of subarrays in nums that match the pattern.
+       
+1...i..k...........n
+[..................]
 
- 
+
+
 
 Example 1:
 
@@ -31,12 +35,30 @@ Hence, there are 2 subarrays in nums that match the pattern.
 Constraints:
 
 2 <= n == nums.length <= 100
-1 <= nums[i] <= 109
+1 <= nums[i] <= 10^9
 1 <= m == pattern.length < n
 -1 <= pattern[i] <= 1
+
+[1, 1, 1, 1], [0, 0] => 2
+
+[1, 2, 3, 4]. [0, 0]
+
+[1, 2, 1, 2], [1, -1] => 2
+
+[1, 3, 4, 6]  [1, 0]
+
+
 """
 
 class Solution:
     def countMatchingSubarrays(self, nums: List[int], pattern: List[int]) -> int:
-        return 0
+        
+        n, p = len(nums), len(pattern)
+        patternDiffs = []
+
+        for a, b in zip(nums[1:], nums[:n-1]):
+            diff = b > a - a < b
+            patternDiffs.append(diff)    
+        
+        return sum(patternDiffs[i : i+ p] == pattern for i in range(n- p + 1))
     
