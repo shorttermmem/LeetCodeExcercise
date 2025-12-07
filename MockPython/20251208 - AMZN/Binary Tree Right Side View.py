@@ -13,6 +13,10 @@ Input: root = [1,2,3,null,5,null,4]
 
 Output: [1,3,4]
 
+   1
+ 2  3
+n 5
+
 Explanation:
 
 
@@ -54,6 +58,23 @@ class TreeNode:
         self.left = left
         self.right = right
         
+from collections import deque
+
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        return []
+        if not root:
+            return []
+        levelNodes = deque([root])
+        rightViewValues = []
+        while levelNodes:
+            nodeCount = len(levelNodes)
+            currNode = None
+            for _ in range(nodeCount):
+                currNode = levelNodes.popleft()
+                if currNode.left:
+                    levelNodes.append(currNode.left)
+                if currNode.right:
+                    levelNodes.append(currNode.right)
+            if currNode:
+                rightViewValues.append(currNode.val)
+        return rightViewValues
