@@ -41,3 +41,4 @@ intervals[i].length == 2
 
 class Solution:
     def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
+        return 0
