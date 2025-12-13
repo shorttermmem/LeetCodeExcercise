@@ -29,8 +29,42 @@ Explanation: There are three ways to climb to the top.
 Constraints:
 
 1 <= n <= 45
+
+waysFor(n) = waysFor(n-1) + waysFor(n-2)
+
+
 """
 
 class Solution:
     def climbStairs(self, n: int) -> int:
-        return 0
+
+        # n = 3
+        #     3-1,          3-2
+        #     2-1, 2-2,     1-1 
+        #     1-1 
+        @lru_cache(None)        
+        def waysForSteps(steps) -> int:
+            if steps <= 1:
+                return 1
+            return waysForSteps(steps - 1) + waysForSteps(steps - 2)
+
+        return waysForSteps(n)
+    
+class SolutionBtUp:
+    def climbStairs(self, n: int) -> int:
+        ways1StepBefore, ways2StepsBefore = 1, 1
+        waysToCurrentStep = 1
+        for steps in range(2, n+1):
+            waysToCurrentStep = ways1StepBefore + ways2StepsBefore
+            ways1StepBefore, ways2StepsBefore = waysToCurrentStep, ways1StepBefore
+        return waysToCurrentStep
+
+
+
+
+
+
+
+
+
+        

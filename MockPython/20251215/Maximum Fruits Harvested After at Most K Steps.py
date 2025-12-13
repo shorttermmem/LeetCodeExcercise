@@ -3,7 +3,9 @@
 from common_types import *
 
 """
-Fruits are available at some positions on an infinite x-axis. You are given a 2D integer array fruits where fruits[i] = [positioni, amounti] depicts amounti fruits at the position positioni. fruits is already sorted by positioni in ascending order, and each positioni is unique.
+Fruits are available at some positions on an infinite x-axis. 
+You are given a 2D integer array fruits where fruits[i] = [positioni, amounti] depicts amounti fruits at the position positioni. 
+fruits is already sorted by positioni in ascending order, and each positioni is unique.
 
 You are also given an integer startPos and an integer k. Initially, you are at the position startPos. From any position, you can either walk to the left or right. It takes one step to move one unit on the x-axis, and you can walk at most k steps in total. For every position you reach, you harvest all the fruits at that position, and the fruits will disappear from that position.
 
@@ -55,4 +57,35 @@ positioni-1 < positioni for any i > 0 (0-indexed)
 
 class Solution:
     def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
-        return 0
+
+        #not dp, not uf, not dfs or bfs
+        #not mstack, not sorting
+        #prefix sum + bs
+        #sw
+        n = len(fruits)
+        l, r = 0, 0
+
+        def step(left, right)-> int:
+            if fruits[right][0] <= startPos:
+                return startPos - fruits[left][0]
+            elif fruits[left][0] >= startPos:
+                return fruits[right][0] - startPos
+            else:
+                return (
+                    min(
+                        abs(startPos - fruits[right][0]),
+                        abs(startPos - fruits[left][0])
+                    ) + fruits[right][0] - fruits[left][0]
+                )
+            
+        curr = 0
+        res = 0
+
+        while r < n:
+            curr += fruits[r][1]
+            while l <= r and step(l, r) > k:
+                curr -= fruits[l][1]
+                l += 1
+            res = max(res, curr)
+            r+=1
+        return res

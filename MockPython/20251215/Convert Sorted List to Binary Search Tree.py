@@ -5,10 +5,7 @@ from common_types import *
 """
 Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.
 
- 
-
 Example 1:
-
 
 Input: head = [-10,-3,0,5,9]
 Output: [0,-3,9,-10,null,5]
@@ -21,8 +18,10 @@ Output: []
 
 Constraints:
 
-The number of nodes in head is in the range [0, 2 * 104].
--105 <= Node.val <= 105
+The number of nodes in head is in the range [0, 2 * 10^4].
+-10^5 <= Node.val <= 10^5
+
+
 
 """
 # Definition for singly-linked list.
@@ -39,4 +38,18 @@ class TreeNode:
 
 class Solution:
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
-        return None
+        listCopy = []
+        while head:
+            listCopy.append(head.val)
+            head = head.next
+
+        def sortedToBst(left, right) -> Optional[TreeNode]:
+            if left > right:
+                return None
+            midIndex = (left + right) // 2
+            rootNode = TreeNode(listCopy[midIndex])
+            rootNode.left = sortedToBst(left, midIndex - 1)
+            rootNode.right = sortedToBst(midIndex + 1, right)
+            return rootNode
+
+        return sortedToBst(0, len(listCopy)-1)
